@@ -18,9 +18,24 @@ Matrix Matrix::set_data(const std::vector<std::vector<double>>& d) {
     return *this; // Return reference to self for method chaining
 }
 
-std::vector<std::vector<double>> Matrix::get_data() const { 
-    return data;
+double Matrix::get_data_entry(int r, int c) const {
+    if (r >= rows || c >= cols) {
+        throw std::runtime_error("Index out of bounds");
+    }
+    return data[r][c];
 }
+
+Matrix Matrix::set_data_entry(int r, int c, double value) {
+    if (r >= rows || c >= cols) {
+        throw std::runtime_error("Index out of bounds");
+    }
+    data[r][c] = value;
+    return *this; // Return reference to self for method chaining
+};
+
+int Matrix::get_cols() const {return cols;}
+
+int Matrix::get_rows() const {return rows;}
 
 Matrix Matrix::operator*(const Matrix& other) const {
     Matrix result(rows, other.cols);
